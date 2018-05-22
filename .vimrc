@@ -1,0 +1,9 @@
+:set cursorline
+:set nu
+:set expandtab
+:set autoindent
+:set tabstop=2
+:set shiftwidth=2
+:set nohlsearch
+:set ic
+:set aw

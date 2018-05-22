@@ -1,0 +1,28 @@
+#!/bin/env bash
+set -u;
+
+pipe=$1;
+break=${2:-};
+
+aws_query="aws codepipeline get-pipeline-state --name $pipe --output text \
+  --query 'stageStates[].actionStates[].[actionName,latestExecution.status,latestExecution.lastStatusChange,latestExecution.errorDetails.message]'";
+
+last_query_output='';
+while true; do
+    this_query_output=$(eval $aws_query | tr '	' ' ' | sed 's,  *, ,g' | sort -k3);
+    if test _"$this_query_output" == _"$last_query_output";
+    then echo -n .;
+    else
+        echo;
+        echo "$this_query_output" |
+            awk '
+                $3~/None/{print;next};
+                {$3=$3" "strftime("%D %T %Z",$3); print}
+                ' |
+            column -to' ';
+        last_query_output=$this_query_output;
+    fi;
+    test "$break" && break;
+    sleep 1;
+done;
+

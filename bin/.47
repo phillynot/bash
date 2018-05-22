@@ -1,0 +1,12 @@
+---
+schema_version: 0.0
+type: internal
+description:
+    bash scripts for AWS CLI
+keywords:
+  - bash
+  - aws
+  - cli
+  - codepipeline
+  - cloudformation
+  - stack

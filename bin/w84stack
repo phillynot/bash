@@ -1,0 +1,18 @@
+#!/bin/env bash
+set -u;
+
+stack=$1;
+pattern=${2:-IN_PROGRESS} ;
+
+stack_query="aws cloudformation describe-stacks --stack-name $stack --query Stacks[].StackStatus --output text 2>/dev/null";
+
+query_output=$(eval $stack_query);
+[[ _$query_output =~ $pattern ]] && echo -n $query_output;
+
+while [[ _$(eval $stack_query) =~ $pattern ]]; do
+    sleep 1;
+    echo -n .;
+done;
+
+eval $stack_query || echo;
+
