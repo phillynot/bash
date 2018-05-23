@@ -8,12 +8,48 @@ bash scripts for aws cli
 
 ## Contents
 
+  * aws-pipe-watch
   * delete-stack-damnit
   * get-bucket-policy-all
   * get-pipeline-branches
   * list-repos
-  * w84pipe
   * w84stack
+
+### aws-pipe-watch (formerly known as w84pipe)
+
+An alternative to viewing CodePipeline status in the AWS Console
+
+Usage:  
+
+    aws-pipe-watch <code-pipeline-name> [.]  
+
+  * Until interrupted, repeatedly run get-pipeline-state, printing useful info and dots while nothing is changing.  
+  * If there is anything for argument 2, then get-pipeline-state only once.  
+
+Example:  
+
+    > aws-pipe-watch sdu-workflow-service-dev-pipeline@waf-pipeline  
+    DeployToEcs              Succeeded  1525325047.19 05/02/18 23:24:07 MDT None  
+    WorkflowService          Succeeded  1525325869.9  05/02/18 23:37:49 MDT None  
+    LambdaUpdate             Failed     1525325995.72 05/02/18 23:39:55 MDT Build terminated with state: FAILED  
+    Source                   Succeeded  1525361804.26 05/03/18 09:36:44 MDT None  
+    pytest                   Succeeded  1525361937.08 05/03/18 09:38:57 MDT None  
+    cfn-lint                 Succeeded  1525361937.69 05/03/18 09:38:57 MDT None  
+    cfn-nag                  Succeeded  1525361937.84 05/03/18 09:38:57 MDT None  
+    update-code-pipeline     Succeeded  1525362005.8  05/03/18 09:40:05 MDT None  
+    iam                      Succeeded  1525362043.45 05/03/18 09:40:43 MDT None  
+    buckets                  Succeeded  1525362043.51 05/03/18 09:40:43 MDT None  
+    dynamo                   Succeeded  1525362043.64 05/03/18 09:40:43 MDT None  
+    lambda-staging           Succeeded  1525362200.07 05/03/18 09:43:20 MDT None  
+    ecs                      Succeeded  1525362234.9  05/03/18 09:43:54 MDT None  
+    CurationProcessFunctions Succeeded  1525362235.49 05/03/18 09:43:55 MDT None  
+    SeismicCurationProcess   Succeeded  1525362272.33 05/03/18 09:44:32 MDT None  
+    DocumentImagesWorkflow   Succeeded  1525362272.56 05/03/18 09:44:32 MDT None  
+    DocumentWorkflow         Succeeded  1525362272.61 05/03/18 09:44:32 MDT None  
+    WellWorkflow             Succeeded  1525362272.79 05/03/18 09:44:32 MDT None  
+    DockerBuild              InProgress 1525362276.5  05/03/18 09:44:36 MDT None  
+    CurationJobStateMachine  Succeeded  1525362308.0  05/03/18 09:45:08 MDT None  
+    ........................................  
 
 ### delete-stack-damnit
 
@@ -69,43 +105,6 @@ Example:
     sdu-dev-iam                                 1526308946.75 05/14/18 08:42:26 MDT master
     sdu-service-submission                      1526909130.23 05/21/18 07:25:30 MDT feature/Sprint8 develop jbrake/encryption
     
-
-### w84pipe
-
-An alternative to viewing CodePipeline status in the AWS Console
-
-Usage:  
-
-    w84pipe <code-pipeline-name> [.]  
-
-  * Until interrupted, repeatedly run get-pipeline-state, printing useful info and dots while nothing is changing.  
-  * If there is anything for argument 2, then get-pipeline-state only once.  
-
-Example:  
-
-    > w84pipe sdu-workflow-service-dev-pipeline@waf-pipeline  
-    DeployToEcs              Succeeded  1525325047.19 05/02/18 23:24:07 MDT None  
-    WorkflowService          Succeeded  1525325869.9  05/02/18 23:37:49 MDT None  
-    LambdaUpdate             Failed     1525325995.72 05/02/18 23:39:55 MDT Build terminated with state: FAILED  
-    Source                   Succeeded  1525361804.26 05/03/18 09:36:44 MDT None  
-    pytest                   Succeeded  1525361937.08 05/03/18 09:38:57 MDT None  
-    cfn-lint                 Succeeded  1525361937.69 05/03/18 09:38:57 MDT None  
-    cfn-nag                  Succeeded  1525361937.84 05/03/18 09:38:57 MDT None  
-    update-code-pipeline     Succeeded  1525362005.8  05/03/18 09:40:05 MDT None  
-    iam                      Succeeded  1525362043.45 05/03/18 09:40:43 MDT None  
-    buckets                  Succeeded  1525362043.51 05/03/18 09:40:43 MDT None  
-    dynamo                   Succeeded  1525362043.64 05/03/18 09:40:43 MDT None  
-    lambda-staging           Succeeded  1525362200.07 05/03/18 09:43:20 MDT None  
-    ecs                      Succeeded  1525362234.9  05/03/18 09:43:54 MDT None  
-    CurationProcessFunctions Succeeded  1525362235.49 05/03/18 09:43:55 MDT None  
-    SeismicCurationProcess   Succeeded  1525362272.33 05/03/18 09:44:32 MDT None  
-    DocumentImagesWorkflow   Succeeded  1525362272.56 05/03/18 09:44:32 MDT None  
-    DocumentWorkflow         Succeeded  1525362272.61 05/03/18 09:44:32 MDT None  
-    WellWorkflow             Succeeded  1525362272.79 05/03/18 09:44:32 MDT None  
-    DockerBuild              InProgress 1525362276.5  05/03/18 09:44:36 MDT None  
-    CurationJobStateMachine  Succeeded  1525362308.0  05/03/18 09:45:08 MDT None  
-    ........................................  
-
 ### w84stack
 
 An alternative to viewing stack status in the AWS Console
