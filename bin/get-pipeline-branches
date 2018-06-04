@@ -1,9 +1,0 @@
-#!/bin/env bash
-
-aws codepipeline list-pipelines --query 'pipelines[].[name]' --output text |
-xargs -i aws codepipeline get-pipeline --name {} --query 'pipeline.[name,stages[].actions[?actionTypeId.category==`Source`].configuration.[RepositoryName,BranchName]]' --output text |
-xargs -l2 |
-sed 's,  *, ,g' |
-sort -k2 |
-column -t
-
