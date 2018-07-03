@@ -83,7 +83,7 @@ function path_add {
     path_del;
 };
 
-path_del ~/.local/bin;
+path_add ~/.local/bin; # used for venv
 path_del ~/bin;
 path_add ~/my/bin;
 path_add .;
