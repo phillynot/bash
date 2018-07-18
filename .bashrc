@@ -88,3 +88,7 @@ path_del ~/bin;
 path_add ~/my/bin;
 path_add .;
 
+export GOPATH=~/go;
+export GOBIN=$GOPATH/bin;
+path_add $GOBIN;
+
