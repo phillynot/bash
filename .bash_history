@@ -37318,3 +37318,33 @@ git commit -am'.bash_history'
 gs
 #1531929217
 git add .bash_history 
+#1531929228
+git commit -am'.bash_history'
+#1531929232
+git push
+#1531929255
+cat .aws/credentials 
+#1531929278
+la ~
+#1531929294
+m ~/.git-credentials 
+#1531929308
+la
+#1531929319
+ll .config/
+#1531929323
+ll .config/git/
+#1531929355
+git help credentials
+#1531929419
+man git-credential-store
+#1531929497
+git config credential.helper store
+#1531929502
+git pull
+#1531929506
+git push
+#1531929547
+m ~/.git-credentials 
+#1531929588
+gs
