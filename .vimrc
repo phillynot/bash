@@ -1,3 +1,4 @@
+:set path=.,,**
 :set cursorline
 :set nu
 :set expandtab
