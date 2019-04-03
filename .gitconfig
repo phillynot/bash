@@ -1,7 +1,12 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Tony Lelm
-	email = tony.lelm@47lining.com
+	email = tony.lelm@hitachivantara.com
 [credential]
 	helper = store
 	UseHttpPath = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

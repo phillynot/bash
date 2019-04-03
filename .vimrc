@@ -1,10 +1,13 @@
+:syntax on
 :set path=.,,**
 :set cursorline
 :set nu
 :set expandtab
 :set autoindent
-:set tabstop=2
-:set shiftwidth=2
+:set tabstop=4
+:set shiftwidth=4
 :set nohlsearch
 :set ic
 :set aw
+:set statusline=%l,%c,%F%m
+:set laststatus=2

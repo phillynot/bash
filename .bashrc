@@ -5,7 +5,7 @@ if [ -f /etc/bashrc ]; then . /etc/bashrc; fi;
 
 set -o vi;
 set -a;
-shopt -s direxpand;
+#shopt -s direxpand;
 trap 'tput sgr0' DEBUG; # reset color after PS1
 
 shopt -s promptvars;
@@ -35,6 +35,8 @@ function history {                    #5
 PROMPT_COMMAND=_bash_history_sync;
 #}
 
+alias python='python3';
+alias vi='vim';
 alias vrc='vi ~/.bashrc; . ~/.bashrc';
 alias src='. ~/.bashrc';
 alias la='ls -alF';
@@ -52,7 +54,9 @@ alias sls='screen -ls';
 alias gs='git status';
 alias gr='git remote -v';
 alias gb='git branch -a';
+alias gco='git checkout';
 alias vin='vi ~/notes';
+alias ec2='ssh -i ~/.ssh/TL.pem ec2-user@ec2-54-208-62-153.compute-1.amazonaws.com';
 
 function pp { echo $PATH | tr : '
 '; };
