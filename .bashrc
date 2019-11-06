@@ -20,7 +20,7 @@ HISTFILESIZE=$HISTSIZE;
 HISTCONTROL=ignorespace:ignoredups;
 
 function _bash_history_sync {
-    PS1="[\[\e[34m\]\u@\h \[\e[31m\]${AWS_PROFILE:=tlelm} \[\e[m\]\d \t \[\e[33m\]\w\[\e[m\]]\n<\!>\[\e[32m\]";
+    PS1="[\[\e[34m\]\u@\h \[\e[31m\]${AWS_PROFILE:=tlelm-47} \[\e[m\]\d \t \[\e[33m\]\w\[\e[m\]]\n<\!>\[\e[32m\]";
     builtin history -a;         #2
     HISTFILESIZE=$HISTSIZE;     #4
     builtin history -c;         #3
@@ -35,7 +35,8 @@ function history {                    #5
 PROMPT_COMMAND=_bash_history_sync;
 #}
 
-alias python='python3';
+#alias python='python3';
+#alias pip='pip3';
 alias vi='vim';
 alias vrc='vi ~/.bashrc; . ~/.bashrc';
 alias src='. ~/.bashrc';
@@ -84,15 +85,15 @@ function path_add {
     else
         PATH=$1:$PATH;
     fi;
-    path_del;
+    path_del; # to remove duplicates
 };
 
-path_add ~/.local/bin; # used for venv
 path_del ~/bin;
+path_add ~/Library/Python/3.7/bin;
 path_add ~/my/bin;
 path_add .;
 
 export GOPATH=~/go;
 export GOBIN=$GOPATH/bin;
-path_add $GOBIN;
+#path_add $GOBIN;
 
