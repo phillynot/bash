@@ -40,8 +40,6 @@ PROMPT_COMMAND=_bash_history_sync;
 #}
 
 alias venv='. venv/bin/activate'
-#alias python='python3';
-#alias pip='pip3';
 alias pyco='pytest --collect-only ';
 alias chrome='open -a "Google Chrome" ';
 alias vi='vim';
@@ -67,7 +65,6 @@ alias gb='git branch -a';
 alias gd='git branch -D';
 alias gco='git checkout';
 alias vin='vi ~/notes';
-alias ec2='ssh -i ~/.ssh/TL.pem ec2-user@ec2-54-208-62-153.compute-1.amazonaws.com';
 
 function pp { echo $PATH | tr : '
 '; };
@@ -78,22 +75,25 @@ function vw { vi $(which "$@"); };
 
 function path_del {
     local this;
-    local new;
-    for this in $(pp); do
-        test :$this = :${1:-} && continue;
-        case ":$new:" in
-            *:$this:*) ;;
-            *) new=$new:$this;
+    local new_path;
+    local tmpfile=$(mktemp);
+    pp > $tmpfile
+    while read this; do
+        test ":$this" = ":${1:-}" && continue;
+        case ":$new_path:" in
+            *:"$this":*) ;;
+            *) new_path="$new_path:$this" ;;
         esac;
-    done;
-    PATH=${new#:};
+    done < $tmpfile;
+    rm $tmpfile;
+    PATH="${new_path#:}";
 };
 
 function path_add {
     if [ "$2" = "after" ] ; then
-        PATH=$PATH:$1;
+        PATH=$PATH:"$1";
     else
-        PATH=$1:$PATH;
+        PATH="$1":$PATH;
     fi;
     path_del; # to remove duplicates
 };
@@ -107,9 +107,6 @@ export GOPATH=~/go;
 export GOBIN=$GOPATH/bin;
 #path_add $GOBIN;
 export PYTHONSTARTUP=~/.pythonrc
-path_del ~/.pyenv/shims
-eval $(pyenv init --path)
-# eval $(pyenv init - ) # syntax error
 . venv/bin/activate
 
 alias gpm='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
@@ -117,3 +114,18 @@ alias gp='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git ch
 alias sed=gsed
 alias aws=awscliv2
 alias aws1=/usr/local/bin/aws
+path_add "/c/Program Files (x86)/GnuWin32/bin"
+path_add ~/.pyenv/pyenv-win/bin
+path_add ~/.pyenv/pyenv-win/shims
+export PYENV=~/.pyenv/pyenv-win
+export PYENV_ROOT=~/.pyenv/pyenv-win
+export PYENV_HOME=~/.pyenv/pyenv-win
+# eval $(pyenv init --path)
+# eval $(pyenv init - ) # syntax error
+path_add /c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python37
+export NODE_OPTIONS=--openssl-legacy-provider
+path_del '/c/Python311/Scripts'
+path_del '/c/Python311'
+path_del '/c/Program Files/Python39/Scripts'
+path_del '/c/Program Files/Python39'
+
