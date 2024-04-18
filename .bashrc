@@ -13,6 +13,7 @@ shopt -s promptvars;
 LESS='-F -I -R -P%f ?m(file\:%i/%m) .(line\:%l/%L ?eEND) ?xNext\:%x.:%P\%).%t$';
 HISTTIMEFORMAT="<%Z/%Y%m%d/%H:%M:%S>";
 HISTTIMEFORMAT=$(echo -e "\033[0;33m$HISTTIMEFORMAT \033[0m"); #colorize
+HISTFILE=~/.bash_history
 
 # from:lesmana@https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows {
 HISTSIZE=100000;
@@ -119,7 +120,7 @@ path_add ~/.pyenv/pyenv-win/shims
 export PYENV=~/.pyenv/pyenv-win
 export PYENV_ROOT=~/.pyenv/pyenv-win
 export PYENV_HOME=~/.pyenv/pyenv-win
-# eval $(pyenv init --path)
+eval $(pyenv init --path)
 # eval $(pyenv init - ) # syntax error
 export NODE_OPTIONS=--openssl-legacy-provider
 alias gsl='git stash list'

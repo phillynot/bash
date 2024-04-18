@@ -1,7 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
 	name = Tony Lelm
-	email = tony.lelm@hitachivantara.com
+	email = tony.lelm@hitachids.com
 [credential]
 	helper = store
 	UseHttpPath = true
@@ -14,3 +14,5 @@
 	ff = only
 [init]
 	defaultBranch = main
+[push]
+    autoSetupRemote = true
