@@ -18,6 +18,7 @@ HISTTIMEFORMAT=$(echo -e "\033[0;33m$HISTTIMEFORMAT \033[0m"); #colorize
 HISTSIZE=100000;
 HISTFILESIZE=$HISTSIZE;
 HISTCONTROL=ignorespace:ignoredups;
+HISTFILE=~/.bash_history;
 
 function _bash_history_sync {
     PS1="[\[\e[m\]\d \t"
@@ -73,6 +74,7 @@ function pu { builtin pushd "$@"; builtin dirs -v -p; };
 function po { builtin popd  "$@"; builtin dirs -v -p; };
 function mw { m $(which "$@"); };
 function vw { vi $(which "$@"); };
+function lw { la $(which -a "$@"); };
 
 function path_del {
     local this;
@@ -108,17 +110,10 @@ export GOPATH=~/go;
 export GOBIN=$GOPATH/bin;
 #path_add $GOBIN;
 export PYTHONSTARTUP=~/.pythonrc
-path_add /c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python38
-test -e venv/bin/activate && . venv/bin/activate
-test -e venv/Scripts/activate && . venv/Scripts/activate
 
 alias gpm='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git stash && git checkout main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git stash pop && git branch -a)';
 alias gp='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout master && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
-#unalias sed
-#alias sed=gsed
-#alias aws=awscliv2
-alias aws1=/usr/local/bin/aws
-path_add "/c/Program Files (x86)/GnuWin32/bin"
+type aws 2>/dev/null | grep -q aliased && unalias aws
 path_add ~/.pyenv/pyenv-win/bin
 path_add ~/.pyenv/pyenv-win/shims
 export PYENV=~/.pyenv/pyenv-win
@@ -126,17 +121,11 @@ export PYENV_ROOT=~/.pyenv/pyenv-win
 export PYENV_HOME=~/.pyenv/pyenv-win
 # eval $(pyenv init --path)
 # eval $(pyenv init - ) # syntax error
-path_del /c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python37
-#export NODE_OPTIONS=--openssl-legacy-provider
-path_del '/c/Python311/Scripts'
-path_del '/c/Python311'
-path_del '/c/Program Files/Python39/Scripts'
-path_del '/c/Program Files/Python39'
-path_add ~/Downloads/nvm/v16.19.0
-path_del '/c/Program Files/nodejs/node'
-path_del '/c/Program Files/nodejs'
+export NODE_OPTIONS=--openssl-legacy-provider
 alias gsl='git stash list'
-path_del '/c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python37/Scripts'
-alias aws=~/bin/aws.cmd
-export PAGER='less -F -I -R'
+unset _OLD_VIRTUAL_PATH
+eval "$(~/homebrew/bin/brew shellenv)"
+test -e venv/bin/activate && . venv/bin/activate
+path_del
+alias k=kubectl
 
