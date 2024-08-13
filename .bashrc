@@ -25,6 +25,7 @@ function _bash_history_sync {
     PS1="$PS1 \[\e[33m\]\w \[\e[34m\](@$branch) ";
     if [ -n "$VIRTUAL_ENV" ]; then PS1="$PS1\[\e[32m\]($(basename $(dirname $VIRTUAL_ENV)))"; fi;
     PS1="$PS1\[\e[m\]]\n<${WINDOW}:\!>\[\e[32m\]";
+    PS1+='\[\e]0;bash\e\\\]'
     builtin history -a;         #2
     HISTFILESIZE=$HISTSIZE;     #4
     builtin history -c;         #3
@@ -39,7 +40,7 @@ function history {                    #5
 PROMPT_COMMAND=_bash_history_sync;
 #}
 
-alias venv='. venv/bin/activate'
+alias venv='. venv/bin/activate || . venv/Scripts/activate'
 alias pyco='pytest --collect-only ';
 alias chrome='open -a "Google Chrome" ';
 alias vi='vim';
@@ -98,7 +99,7 @@ function path_add {
     path_del; # to remove duplicates
 };
 
-path_del ~/bin;
+path_add ~/bin;
 path_del ~/Library/Python/3.7/bin;
 path_add ~/my/bin;
 path_add .;
@@ -107,12 +108,15 @@ export GOPATH=~/go;
 export GOBIN=$GOPATH/bin;
 #path_add $GOBIN;
 export PYTHONSTARTUP=~/.pythonrc
-. venv/bin/activate
+path_add /c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python38
+test -e venv/bin/activate && . venv/bin/activate
+test -e venv/Scripts/activate && . venv/Scripts/activate
 
-alias gpm='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
+alias gpm='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git stash && git checkout main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git stash pop && git branch -a)';
 alias gp='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout master && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
-alias sed=gsed
-alias aws=awscliv2
+#unalias sed
+#alias sed=gsed
+#alias aws=awscliv2
 alias aws1=/usr/local/bin/aws
 path_add "/c/Program Files (x86)/GnuWin32/bin"
 path_add ~/.pyenv/pyenv-win/bin
@@ -122,10 +126,17 @@ export PYENV_ROOT=~/.pyenv/pyenv-win
 export PYENV_HOME=~/.pyenv/pyenv-win
 # eval $(pyenv init --path)
 # eval $(pyenv init - ) # syntax error
-path_add /c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python37
-export NODE_OPTIONS=--openssl-legacy-provider
+path_del /c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python37
+#export NODE_OPTIONS=--openssl-legacy-provider
 path_del '/c/Python311/Scripts'
 path_del '/c/Python311'
 path_del '/c/Program Files/Python39/Scripts'
 path_del '/c/Program Files/Python39'
+path_add ~/Downloads/nvm/v16.19.0
+path_del '/c/Program Files/nodejs/node'
+path_del '/c/Program Files/nodejs'
+alias gsl='git stash list'
+path_del '/c/Users/Tony.T.Lelm/AppData/Local/Programs/Python/Python37/Scripts'
+alias aws=~/bin/aws.cmd
+export PAGER='less -F -I -R'
 
