@@ -122,6 +122,8 @@ export PYENV_ROOT=~/.pyenv/pyenv-win
 export PYENV_HOME=~/.pyenv/pyenv-win
 eval $(pyenv init --path)
 # eval $(pyenv init - ) # syntax error
+path_add ~/.yarn/bin
+path_add ~/.config/yarn/global/node_modules/.bin
 export NODE_OPTIONS=--openssl-legacy-provider
 alias gsl='git stash list'
 unset _OLD_VIRTUAL_PATH
