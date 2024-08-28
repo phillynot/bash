@@ -103,21 +103,18 @@ function path_add {
     path_del; # to remove duplicates
 };
 
-path_add ~/bin;
-path_del ~/Library/Python/3.7/bin;
+path_del ~/bin;
 path_add ~/my/bin;
 path_add .;
+path_add ~/homebrew/bin;
 
 export GOPATH=~/go;
 export GOBIN=$GOPATH/bin;
-#path_add $GOBIN;
+# path_add $GOBIN;
 export PYTHONSTARTUP=~/.pythonrc
 
 type aws 2>/dev/null | grep -q aliased && unalias aws
 alias gpm='(git branch -a | grep -q main && main=main; git branch -a | grep -q master && main=master; this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout $main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
-alias sed=gsed
-alias aws=awscliv2
-alias aws1=/usr/local/bin/aws
 path_add ~/.pyenv/pyenv-win/bin
 path_add ~/.pyenv/pyenv-win/shims
 export PYENV=~/.pyenv/pyenv-win
