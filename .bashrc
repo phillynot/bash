@@ -15,6 +15,7 @@ HISTTIMEFORMAT="<%Z/%Y%m%d/%H:%M:%S>";
 HISTTIMEFORMAT=$(echo -e "\033[0;33m$HISTTIMEFORMAT \033[0m"); #colorize
 
 # from:lesmana@https://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows {
+HISTFILE=~/.bash_history
 HISTSIZE=100000;
 HISTFILESIZE=$HISTSIZE;
 HISTCONTROL=ignorespace:ignoredups;
