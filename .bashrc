@@ -112,9 +112,11 @@ export GOBIN=$GOPATH/bin;
 #path_add $GOBIN;
 export PYTHONSTARTUP=~/.pythonrc
 
-alias gpm='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git stash && git checkout main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git stash pop && git branch -a)';
-alias gp='(this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout master && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
 type aws 2>/dev/null | grep -q aliased && unalias aws
+alias gpm='(git branch -a | grep -q main && main=main; git branch -a | grep -q master && main=master; this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout $main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
+alias sed=gsed
+alias aws=awscliv2
+alias aws1=/usr/local/bin/aws
 path_add ~/.pyenv/pyenv-win/bin
 path_add ~/.pyenv/pyenv-win/shims
 export PYENV=~/.pyenv/pyenv-win
