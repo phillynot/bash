@@ -115,12 +115,12 @@ export PYTHONSTARTUP=~/.pythonrc
 
 type aws 2>/dev/null | grep -q aliased && unalias aws
 alias gpm='(git branch -a | grep -q main && main=main; git branch -a | grep -q master && main=master; this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout $main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
-path_add ~/.pyenv/pyenv-win/bin
-path_add ~/.pyenv/pyenv-win/shims
-export PYENV=~/.pyenv/pyenv-win
-export PYENV_ROOT=~/.pyenv/pyenv-win
-export PYENV_HOME=~/.pyenv/pyenv-win
-eval $(pyenv init --path)
+# path_add ~/.pyenv/pyenv-win/bin
+# path_add ~/.pyenv/pyenv-win/shims
+# export PYENV=~/.pyenv/pyenv-win
+# export PYENV_ROOT=~/.pyenv/pyenv-win
+# export PYENV_HOME=~/.pyenv/pyenv-win
+# eval $(pyenv init --path)
 # eval $(pyenv init - ) # syntax error
 path_add ~/.yarn/bin
 path_add ~/.config/yarn/global/node_modules/.bin
