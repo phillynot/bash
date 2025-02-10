@@ -26,7 +26,7 @@ function _bash_history_sync {
     PS1="[\[\e[m\]\d \t"
     branch=$(git branch -a 2>/dev/null | grep '^\*' | awk '{print $NF}')
     PS1="$PS1 \[\e[33m\]\w \[\e[34m\](@$branch) ";
-    if [ -n "$VIRTUAL_ENV" ]; then PS1="$PS1\[\e[32m\]($(basename $(dirname $VIRTUAL_ENV)))"; fi;
+    if [ -n "${VIRTUAL_ENV:=}" ]; then PS1="$PS1\[\e[32m\]($(basename $(dirname $VIRTUAL_ENV)))"; fi;
     PS1="$PS1\[\e[m\]]\n<${WINDOW}:\!>\[\e[32m\]";
     PS1+='\[\e]0;bash\e\\\]'
     builtin history -a;         #2
@@ -85,7 +85,7 @@ function path_del {
     pp > $tmpfile
     while read this; do
         test ":$this" = ":${1:-}" && continue;
-        case ":$new_path:" in
+        case ":${new_path:=}:" in
             *:"$this":*) ;;
             *) new_path="$new_path:$this" ;;
         esac;
@@ -116,10 +116,15 @@ export PYTHONSTARTUP=~/.pythonrc
 type aws 2>/dev/null | grep -q aliased && unalias aws
 alias gpm='(git branch -a | grep -q main && main=main; git branch -a | grep -q master && main=master; this_branch=$(git branch | grep "^* " | awk "{print \$NF}") && git checkout $main && git pull && git remote -v prune origin && git checkout $this_branch && git pull && git branch -a)';
 # path_add ~/.pyenv/pyenv-win/bin
+path_del ~/.pyenv/pyenv-win/bin
 # path_add ~/.pyenv/pyenv-win/shims
+path_del ~/.pyenv/pyenv-win/shims
 # export PYENV=~/.pyenv/pyenv-win
+unset PYENV
 # export PYENV_ROOT=~/.pyenv/pyenv-win
+unset PYENV_ROOT
 # export PYENV_HOME=~/.pyenv/pyenv-win
+unset PYENV_HOME
 # eval $(pyenv init --path)
 # eval $(pyenv init - ) # syntax error
 path_add ~/.yarn/bin
@@ -127,7 +132,7 @@ path_add ~/.config/yarn/global/node_modules/.bin
 export NODE_OPTIONS=--openssl-legacy-provider
 alias gsl='git stash list'
 unset _OLD_VIRTUAL_PATH
-eval "$(~/homebrew/bin/brew shellenv)"
+test -d ~/homebrew/bin && eval "$(~/homebrew/bin/brew shellenv)"
 test -e venv/bin/activate && . venv/bin/activate
 path_del
 alias k=kubectl
